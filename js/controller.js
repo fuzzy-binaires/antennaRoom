@@ -272,6 +272,7 @@ function setupTagSearchBox() {
 	$(function () {
 		$("#tagSearchBox").autocomplete({
 			source: getTags(),
+			selectFirst: true,
 			select: function (event, ui) {
 				var seleccion = ui.item.value;
 				// console.log("-|| AT AUTOCOMPLETE EVENT");
@@ -326,9 +327,11 @@ function filterBy(tagName) {
 	//  UPDATE TAG DOM STATE
 	var thisTag = $("#tag-container div:contains('" + tagName + "')");
 	if (thisTag.hasClass("tag-button-selected")) {
-		thisTag.addClass("tag-button");
+		//thisTag.addClass("tag-button");
+		thisTag.removeClass("tag-button-selected");
 	} else {
 		thisTag.addClass("tag-button-selected");
+		//thisTag.removeClass("tag-button");
 	}
 
 
@@ -340,11 +343,13 @@ function filterBy(tagName) {
 		}
 	})
 
+
+
 	// WHAT PILLS END UP BEING SELECTED
 	var selectedPills = [];
-	dbData.pills.forEach(function(pillElement, index){
-		activeTags.forEach( function(tagElement){
-			if(pillElement.tags.includes(tagElement)){
+	dbData.pills.forEach(function (pillElement, index) {
+		activeTags.forEach(function (tagElement) {
+			if (pillElement.tags.includes(tagElement)) {
 				console.log("--|| Pill" + index + " HAS:" + tagElement)
 
 				selectedPills.push(index);
@@ -361,24 +366,34 @@ function filterBy(tagName) {
 
 }
 
-function hidePills(activePills){
+function hidePills(activePills) {
 
-	for(let i=0; i< $(".pill-container").children().length; i++){
+
+
+	for (let i = 0; i < $(".pill-container").children().length; i++) {
+
 		var opacity = 0;
-		if(activePills.includes(i)){
-			opacity = 1;
+
+		// IF DESELECTING AL TAGS
+		if (activePills.length >= 1) {
+			if (activePills.includes(i)) {
+				opacity = 1;
+			} else {
+				// $(".pill-container").children().eq(i).hide();
+			}
 		} else {
-			// $(".pill-container").children().eq(i).hide();
+			opacity = 1;
 		}
 
-		
+
+
 
 		$(".pill-container").children().eq(i).animate({ opacity: 0 }, 50)
-		.animate({ opacity: 1 }, 50)
-		.animate({ opacity: 0 }, 50)
-		.animate({ opacity: 1 }, 50)
-		.animate({ opacity: 0 }, 80)
-		.animate({ opacity: opacity }, 50);
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 50)
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 80)
+			.animate({ opacity: opacity }, 50);
 
 	}
 }
