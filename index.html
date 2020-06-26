@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	<!-- <script src="https://kit.fontawesome.com/762ddd5ea0.js" crossorigin="anonymous"></script> -->
+
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.bundle.min.js"></script> -->
+
+	<!-- <script src="js/jqueryUI/jquery-ui.js"></script> -->
+	<!-- //<link rel="stylesheet" href="js/jqueryUI/jquery-ui.css"> -->
+
+	<link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+
+	<!-- TAGS CONTAINER -->
+
+	<div class="container vertical-center">
+
+		<!-- <div class="row text-center" id="lang">
+			<div class="col">
+				<small><a href="index.html">English</a> | <a href="index_fr.html">Français</a></small>
+			</div>
+		</div> -->
+
+		<div class="row justify-content-md-center" id="tag-container">
+			<a href="#">
+				<div class="tag-button" onclick="showNewPillForm();"> + </div>
+			</a>
+			<!-- <div class="tag-button">gender</div>
+			<div class="tag-button tag-button-selected">colonialism</div> -->
+		</div>
+	</div>
+
+
+
+	<div class="pill-container">
+
+		<div class="pill">
+			<a href="www.pleek.net" target="_blank">
+				<div class="pill-image">
+					<img src="images/antenita.png	" />
+				</div>
+				<div class="pill-textContainer">
+					<div class="pill-title">Downloading bytes...</div>
+					<div class="pill-description">............</div>
+				</div>
+			</a>
+		</div>
+
+
+
+	</div>
+
+	<!-- NEW PILL INPUT FORM CONTAINER -->
+
+	<div class="container vertical-center" id="newPill-container">
+		<div class="row justify-content-md-center">
+
+			<!-- FORM -->
+
+			<div> <strong>New Broadcast</strong>
+				<h1> </h1>
+				<form id="newPillForm" action="javascript:sendFormData()">
+
+					<!-- TITLE -->
+					<div>
+						<label for="titulo">Title:</label>
+						<input name="titulo" type="text" cols="40" value="" tabindex="1" />
+					</div>
+
+
+					<!-- DESCRIPTION -->
+					<dt><label for="descripcion">Description:</label></dt>
+					<dd><textarea rows="4" cols="40" name="descripcion" tabindex="2">A brief synopsis.</textarea></dd>
+
+					<!-- LINK -->
+					<dt><label for="code">Hyperlink:</label></dt>
+					<dd><textarea rows="4" cols="40" name="hyperlink" tabindex="3">...</textarea></dd>
+
+					<!-- TAGS -->
+					<dt><label>Relates to:</label></dt>
+					<dd>
+						<div class="ui-widget">
+							<input id="tagSearchBox" tabindex="4">
+						</div>
+						<div id="tagListInForm">
+
+						</div>
+
+					</dd>
+
+					<div id="submitButtonContainer">
+						<input id="formSubmitButton" type="submit" value="Broadcast" tabindex="5">
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- <script src="js/data.js"></script> -->
+	<script src="js/controller.js"></script>
+
+
+</body>

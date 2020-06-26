@@ -1,0 +1,111 @@
+:root {
+	--back-color: rgb(238, 255, 219);
+	--primary-green: rgb(137, 164, 106);
+}
+
+body {
+	background-color: rgb(238, 255, 219);
+	background-image: url(../images/antennaCables.png);
+	background-repeat: no-repeat;
+	background-position: top;
+	font-family: 'Space Mono', monospace;
+}
+
+a:link, active {
+	color: black;
+}
+
+a:hover {
+	color: rgb(137, 164, 106);
+}
+
+a:visited {
+	color: rgb(137, 164, 106);
+}
+
+.pill-container {
+	width: 100%;
+	height: 100%;
+
+}
+
+.pill {
+	/* border: 1px;
+	border-color: black; */
+	position: absolute;
+	z-index: -1;
+	/* margin-bottom: 20px; */
+	overflow: visible;
+}
+
+.pill-image {
+	display: inline-block;
+	float: left;
+	margin-right: 20px;
+}
+
+.pill-textContainer {
+	display: inline-block;
+	max-width: 330px;
+	float: left;
+}
+
+.pill-title {
+	display: block;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.pill-description {
+	display: block;
+	font-size: 14px;
+}
+
+#tag-container {
+	margin-top: 10px;
+}
+
+.tag-button {
+	border-radius: 4px;
+	border-style: dotted;
+	border-width: 2px;
+	float: left;
+	padding: 2px 5px;
+	margin: 2px;
+	background-color: var(--back-color);
+	color: var(--primary-green);
+	cursor: pointer;
+}
+
+.tag-button-selected {
+	background-color: var(--primary-green);
+	color: black;
+	cursor: pointer;
+}
+
+/* FORM */
+
+#newPill-container {
+	background-color: var(--back-color);
+	border-radius: 4px;
+	border-style: dotted;
+	border-width: 2px;
+	border-color: var(--primary-green);
+	width:500px;
+	padding: 20px;
+	margin-top:20px;
+	/* display: none; */
+}
+
+.hidden{
+	display: none;
+}
+
+.showing{
+	display: block;
+}
+
+#submitButtonContainer{
+	clear: both;
+	padding-top: 15px;
+}
