@@ -244,54 +244,58 @@ function sendFormData() {
 	var hyperlinkForm = $("textarea[name='hyperlink']")[0].value;
 	var tagsForm = getTagsInForm();
 
-	document.getElementById("newPill-container").hidden = true;
+	if (titleForm != "" && descriptionForm != "" && hyperlinkForm != "" && tagsForm.length != 0) {
+		document.getElementById("newPill-container").hidden = true;
 
-	var newPillObject = {
-		"title": titleForm,
-		"description": descriptionForm,
-		"link": hyperlinkForm,
-		"tags": tagsForm
-	}
+		var newPillObject = {
+			"title": titleForm,
+			"description": descriptionForm,
+			"link": hyperlinkForm,
+			"tags": tagsForm
+		}
 
-	// --- UPDATE STUFF ---
+		// --- UPDATE STUFF ---
 
-	// ADD TO db OBJECT
-	dbData.pills.push(newPillObject);
+		// ADD TO db OBJECT
+		dbData.pills.push(newPillObject);
 
-	// ADD PILL TO DOM
-	addNewPillToDOM($(".pill-container"), $(".pill-container").children().first(), dbData.pills[dbData.pills.length - 1]);
-	rePositionPill(dbData.pills.length - 1);
+		// ADD PILL TO DOM
+		addNewPillToDOM($(".pill-container"), $(".pill-container").children().first(), dbData.pills[dbData.pills.length - 1]);
+		rePositionPill(dbData.pills.length - 1);
 
-	// ADD TAG TO DOM
-	tagsForm.forEach(function (element) {
-		addTagItem(document.getElementById("tag-container"), element)
-	});
-
-	//mixPills();
-
-	//event.preventDefault();
-
-	// SAVE db.JSON, VIA PHP
-	/*
-	<?php
-	$myFile = "data.json";
-	$fh = fopen($myFile, 'w') or die("can't open file");
-	$stringData = $_GET["data"];
-	fwrite($fh, $stringData);
-	fclose($fh)
-?>
-	*/
-
-	$.ajax
-		({
-			type: "GET",
-			dataType: 'json',
-			async: false,
-			url: 'http://127.0.0.1:8080/js/saveToFile.php',
-			data: {data: JSON.stringify(dbData) },
-			success: function () { alert("Thanks!"); },
-			failure: function () { alert("Error!"); }
+		// ADD TAG TO DOM
+		tagsForm.forEach(function (element) {
+			addTagItem(document.getElementById("tag-container"), element)
 		});
+
+		//mixPills();
+
+		//event.preventDefault();
+
+		// SAVE db.JSON, VIA PHP
+		/*
+		<?php
+		$myFile = "data.json";
+		$fh = fopen($myFile, 'w') or die("can't open file");
+		$stringData = $_GET["data"];
+		fwrite($fh, $stringData);
+		fclose($fh)
+	?>
+		*/
+
+		$.ajax
+			({
+				type: "GET",
+				dataType: 'json',
+				async: false,
+				url: 'http://127.0.0.1:8080/js/saveToFile.php',
+				data: { data: JSON.stringify(dbData) },
+				success: function () { alert("Thanks!"); },
+				failure: function () { alert("Error!"); }
+			});
+	} else {
+		alert("Be kind... fill out all fields... Merci beaucoup.!!");
+	}
 }
 
 function getTagsInForm() {
@@ -335,7 +339,7 @@ function addTagItemInForm(seleccion) {
 	// FOR WHEN THE USER INPUTS A NEW TAG, AND A boolean justAddedNewTag
 	// TO HANDLE DOUBLE SELECTION BTW keyCheck and autoComplete
 
-	if (seleccion.trim() != "") {
+	if (seleccion.trim() != "" && !tagAlreadyEntered(seleccion)) {
 		var newTagElement = document.createElement("div");
 		newTagElement.setAttribute("class", "tag-button");
 		newTagElement.innerText = seleccion;
@@ -347,6 +351,10 @@ function addTagItemInForm(seleccion) {
 
 	justAddedATagInTheForm = false;
 
+}
+
+function tagAlreadyEntered(tagText) {
+	return getTagsInForm().includes(tagText);
 }
 
 function getTags() {
