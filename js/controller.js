@@ -192,24 +192,46 @@ function rePositionPill(indexAtDB) {
 
 function showNewPillForm() {
 
-	document.getElementById("newPill-container").hidden = false;
+	var pillContainer = $("#newPill-container");
+	if (pillContainer.is(":hidden")) {
 
-	$("#newPill-container").animate({ opacity: 0 }, 50)
-		.animate({ opacity: 1 }, 50)
-		.animate({ opacity: 0 }, 50)
-		.animate({ opacity: 1 }, 50)
-		.animate({ opacity: 0 }, 80)
-		.animate({ opacity: 1 }, 50);
+		// pillContainer.show(10); CECI NE MARCHE PAS
 
-	// RESET FORM VALUES
-	$("input[name='titulo']")[0].value = "";
-	$("textarea[name='descripcion']")[0].value = "";
-	$("textarea[name='hyperlink']")[0].value = "";
-	$("#tagSearchBox")[0].value = "";
-	$("#tagListInForm").empty();
+		// CECI MARCHE BIEN
+		document.getElementById("newPill-container").hidden = false;
+
+		pillContainer.animate({ opacity: 0 }, 50)
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 50)
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 80)
+			.animate({ opacity: 1 }, 50);
+
+		// RESET FORM VALUES
+		$("input[name='titulo']")[0].value = "";
+		$("textarea[name='descripcion']")[0].value = "";
+		$("textarea[name='hyperlink']")[0].value = "";
+		$("#tagSearchBox")[0].value = "";
+		$("#tagListInForm").empty();
 
 
-	setupTagSearchBox();
+		setupTagSearchBox();
+	} else {
+
+		pillContainer.animate({ opacity: 0 }, 50)
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 50)
+			.animate({ opacity: 1 }, 50)
+			.animate({ opacity: 0 }, 80)
+			.animate({ opacity: 1 }, 50, function () {
+				// ON COMPLETE	
+				document.getElementById("newPill-container").hidden = true;
+
+			});
+
+	}
+
+
 
 }
 
@@ -248,6 +270,28 @@ function sendFormData() {
 	//mixPills();
 
 	//event.preventDefault();
+
+	// SAVE db.JSON, VIA PHP
+	/*
+	<?php
+	$myFile = "data.json";
+	$fh = fopen($myFile, 'w') or die("can't open file");
+	$stringData = $_GET["data"];
+	fwrite($fh, $stringData);
+	fclose($fh)
+?>
+	*/
+
+	$.ajax
+		({
+			type: "GET",
+			dataType: 'json',
+			async: false,
+			url: 'http://127.0.0.1:8080/js/saveToFile.php',
+			data: {data: JSON.stringify(dbData) },
+			success: function () { alert("Thanks!"); },
+			failure: function () { alert("Error!"); }
+		});
 }
 
 function getTagsInForm() {
@@ -287,7 +331,7 @@ function setupTagSearchBox() {
 
 function addTagItemInForm(seleccion) {
 
-	// INFO: THERE'S A ENTER KEY CHECK AT THE TOP OF THE PAGE
+	// INFO: THERE'S A "ENTER" KEY CHECK AT THE TOP OF THE PAGE
 	// FOR WHEN THE USER INPUTS A NEW TAG, AND A boolean justAddedNewTag
 	// TO HANDLE DOUBLE SELECTION BTW keyCheck and autoComplete
 
