@@ -9,33 +9,39 @@ var justAddedNewTag = false; // FOR WEIRD FORM BEHAVIOUR (SEE: addTagItem())
 
 $(document).ready(function () {
 
+	rsp = $.ajax
+	({
+		type: "GET",
+		dataType: 'application/json',
+		async: false,
+		url: 'http://134.122.74.56/borders_flask_server/antenna_to_server',
+		success: function () { alert("Thanks!"); },
+		failure: function () { alert("Error!"); }
+	});
 
-	$.getJSON("js/data.json", function (data) {
-
-		dbData = data;
-		//console.log(dbData.pills);
+	dbData = JSON.parse(rsp.responseText).data
+	console.log(dbData.pills);
 
 
-		buildTagsMenu();
-		buildPills();
+	buildTagsMenu();
+	buildPills();
 
-		document.getElementById("newPill-container").hidden = true;
+	document.getElementById("newPill-container").hidden = true;
 
-		// ADD A ENTER KEY TO tagS	earchBox IN CASE USER INPUTS A NEW TAG
-		$("#tagSearchBox").keydown(function (event) {
-			if (event.keyCode == 13) {
+	// ADD A ENTER KEY TO tagS	earchBox IN CASE USER INPUTS A NEW TAG
+	$("#tagSearchBox").keydown(function (event) {
+		if (event.keyCode == 13) {
 
-				var inputText = $("#tagSearchBox")[0].value;
-				// console.log("-|| AT KEY EVENT");
-				addTagItemInForm(inputText);
-				justAddedNewTag = true;
+			var inputText = $("#tagSearchBox")[0].value;
+			// console.log("-|| AT KEY EVENT");
+			addTagItemInForm(inputText);
+			justAddedNewTag = true;
 
-				// event.preventDefault();
+			// event.preventDefault();
 
-				return false;
-				// }
-			}
-		});
+			return false;
+			// }
+		}
 	});
 });
 
@@ -281,22 +287,22 @@ function sendFormData() {
 		fwrite($fh, $stringData);
 		fclose($fh)
 	?>
-		*/
+	*/
 
 		/*
 		 * Essentially need to do this:
 		 *  curl -X POST -H 'Content-Type: application/json' -H "Accept: application/json"  http://134.122.74.56/borders_flask_server/hello -d '{"name": "bob"}'
 		 */ 
 		$.ajax
-			({
-				type: "POST",
-				dataType: 'application/json',
-				async: false,
-				url: 'http://134.122.74.56/borders_flask_server/hello',
-				data: { data: JSON.stringify(dbData) },
-				success: function () { alert("Thanks!"); },
-				failure: function () { alert("Error!"); }
-			});
+		({
+			type: "POST",
+			dataType: 'application/json',
+			async: false,
+			url: 'http://134.122.74.56/borders_flask_server/antenna_to_server',
+			data: { data: JSON.stringify(dbData) },
+			success: function () { alert("Thanks!"); },
+			failure: function () { alert("Error!"); }
+		});
 	} else {
 		alert("Be kind... fill out all fields... Merci beaucoup.!!");
 	}
