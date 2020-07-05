@@ -283,12 +283,16 @@ function sendFormData() {
 	?>
 		*/
 
+		/*
+		 * Essentially need to do this:
+		 *  curl -X POST -H 'Content-Type: application/json' -H "Accept: application/json"  http://134.122.74.56/borders_flask_server/hello -d '{"name": "bob"}'
+		 */ 
 		$.ajax
 			({
-				type: "GET",
-				dataType: 'json',
+				type: "POST",
+				dataType: 'application/json',
 				async: false,
-				url: 'http://127.0.0.1:8080/js/saveToFile.php',
+				url: 'http://134.122.74.56/borders_flask_server/hello',
 				data: { data: JSON.stringify(dbData) },
 				success: function () { alert("Thanks!"); },
 				failure: function () { alert("Error!"); }
