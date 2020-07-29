@@ -14,12 +14,13 @@ $(document).ready(function () {
 		type: "GET",
 		dataType: 'application/json',
 		async: false,
-		url: 'http://134.122.74.56/borders_flask_server/antenna_to_server',
+		url: 'http://www.fuzzy-binaires.org/borders_flask_server/antenna_to_server',
 		success: function () { alert("Thanks!"); },
 		failure: function () { alert("Error!"); }
 	});
 
 	dbData = JSON.parse(rsp.responseText).data
+	// dbData = data;
 	console.log(dbData.pills);
 
 
@@ -298,7 +299,7 @@ function sendFormData() {
 			type: "POST",
 			dataType: 'application/json',
 			async: false,
-			url: 'http://134.122.74.56/borders_flask_server/antenna_to_server',
+			url: 'http://www.fuzzy-binaires.org/borders_flask_server/antenna_to_server',
 			data: { data: JSON.stringify(dbData) },
 			success: function () { alert("Thanks!"); },
 			failure: function () { alert("Error!"); }
@@ -434,28 +435,43 @@ function hidePills(activePills) {
 
 	for (let i = 0; i < $(".pill-container").children().length; i++) {
 
-		var opacity = 0;
+		var opac = 0;
 
-		// IF DESELECTING AL TAGS
+		// IF DESELECTING ALL TAGS
 		if (activePills.length >= 1) {
 			if (activePills.includes(i)) {
-				opacity = 1;
+				opac = 1;
 			} else {
 				// $(".pill-container").children().eq(i).hide();
 			}
 		} else {
-			opacity = 1;
+			opac = 1;
 		}
 
-
-
+		console.log(i + " => " + opac);	
 
 		$(".pill-container").children().eq(i).animate({ opacity: 0 }, 50)
-			.animate({ opacity: 1 }, 50)
-			.animate({ opacity: 0 }, 50)
-			.animate({ opacity: 1 }, 50)
-			.animate({ opacity: 0 }, 80)
-			.animate({ opacity: opacity }, 50);
+		.animate({ opacity: 1 }, 50)
+		.animate({ opacity: 0 }, 50)
+		.animate({ opacity: 1 }, 50)
+		.animate({ opacity: 0 }, 80)
+		.animate({ opacity: opac }, 50, 
+			function(){
+			
+				if($(this).css("opacity") == 0){
+					$(this).hide();
+				} else {
+					$(this).show();
+				}
+			});
+
+
+		// $(".pill-container").children().eq(i).animate({ opacity: 0 }, 50)
+		// 	.animate({ opacity: 1 }, 50)
+		// 	.animate({ opacity: 0 }, 50)
+		// 	.animate({ opacity: 1 }, 50)
+		// 	.animate({ opacity: 0 }, 80)
+		// 	.animate({ opacity: opacity }, 50);
 
 	}
 }
