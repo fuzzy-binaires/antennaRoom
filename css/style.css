@@ -110,3 +110,40 @@ a:visited {
 	clear: both;
 	padding-top: 15px;
 }
+
+/* HOME PILL */
+
+.fuzzyHomePill{
+	position: fixed;
+	z-index: 99;
+	cursor: pointer;
+	transition: all .1s ease-in;
+
+	border: thin dashed var(--primary-green);
+	font-size: 10px;
+	padding: 5px;
+}
+
+.fuzzyHomePill:hover{
+	transform: scale(1.1);
+}
+
+.pill-top-left {
+	top: 5px;
+	left: 5px;
+}
+
+.pill-top-right {
+	top: 10px;
+	right: 10px;
+}
+
+.pill-bottom-left {
+	bottom: 5px;
+	left: 5px;
+}
+
+.pill-bottom-right {
+	bottom: 5px;
+	right: 10px;
+}

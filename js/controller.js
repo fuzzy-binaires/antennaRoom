@@ -9,18 +9,18 @@ var justAddedNewTag = false; // FOR WEIRD FORM BEHAVIOUR (SEE: addTagItem())
 
 $(document).ready(function () {
 
-	rsp = $.ajax
-	({
-		type: "GET",
-		dataType: 'application/json',
-		async: false,
-		url: 'http://www.fuzzy-binaires.org/borders_flask_server/antenna_to_server',
-		success: function () { alert("Thanks!"); },
-		failure: function () { alert("Error!"); }
-	});
+	// rsp = $.ajax
+	// ({
+	// 	type: "GET",
+	// 	dataType: 'application/json',
+	// 	async: false,
+	// 	url: 'http://www.fuzzy-binaires.org/borders_flask_server/antenna_to_server',
+	// 	success: function () { alert("Thanks!"); },
+	// 	failure: function () { alert("Error!"); }
+	// });
 
-	dbData = JSON.parse(rsp.responseText).data
-	// dbData = data;
+	// dbData = JSON.parse(rsp.responseText).data
+	dbData = data;
 	console.log(dbData.pills);
 
 
